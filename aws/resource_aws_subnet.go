@@ -256,6 +256,11 @@ func resourceAwsSubnetRead(d *schema.ResourceData, meta interface{}) error {
 
 	d.Set("owner_id", subnet.OwnerId)
 
+	_, tagsAreDefined := d.GetOk("tags")
+	if tagsAreDefined {
+		d.Set("tags", tagsToMap(subnet.Tags))
+	}
+
 	return nil
 }
 
